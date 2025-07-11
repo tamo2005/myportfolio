@@ -53,7 +53,7 @@ const HeroSection = () => {
             >
             <div className="inline-flex items-center bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full mb-6">
               <Sparkles className="w-5 h-5 mr-2 text-yellow-300" />
-              <span className="text-lg">Welcome to my digital world!</span>
+              <span className="text-lg">Suswagatam to Tamogotham 🦇!</span>
             </div>
             </div>
 
