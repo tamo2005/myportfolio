@@ -158,7 +158,7 @@ const Header = () => {
                         animation: isLoaded ? 'slideInDown 0.6s ease-out forwards' : 'none'
                       }}
                     >
-                      <Icon size={16} className="text-gray-700 group-hover:text-orange-600 transition-colors dark:text-[#999999] dark:group-hover:text-[#FF4C1B]" /> {/* Dark mode colors for social icon */}
+                      <Icon size={16} className="text-gray-700 group-hover:text-orange-600 transition-colors dark:text-white" /> {/* Dark mode colors for social icon */}
                       <div className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 bg-black/80 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap dark:bg-[#0D0D0D]/90 dark:text-[#F5F5F5]"> {/* Dark mode colors for social tooltip */}
                         {social.label}
                       </div>
@@ -176,7 +176,7 @@ const Header = () => {
                 {isDarkMode ? (
                   <Sun size={20} className="text-yellow-400 dark:text-[#F5F5F5]" /> // Dark mode color for Sun icon
                 ) : (
-                  <Moon size={20} className="text-gray-700 dark:text-[#999999]" /> // Dark mode color for Moon icon
+                  <Moon size={20} className="text-gray-700 dark:text-white" /> // Dark mode color for Moon icon
                 )}
               </button>
 
@@ -186,9 +186,9 @@ const Header = () => {
                 className="lg:hidden relative w-10 h-10 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center hover:bg-orange-500/20 transition-all duration-300 dark:bg-[#1A1A1A]/50 dark:hover:bg-[#FF4C1B]/20" // Dark mode colors for mobile menu button
               >
                 {isMobileMenuOpen ? (
-                  <X size={20} className="text-gray-700 dark:text-[#999999]" /> // Dark mode color for X icon
+                  <X size={20} className="text-gray-700 dark:text-white" /> // Dark mode color for X icon
                 ) : (
-                  <Menu size={20} className="text-gray-700 dark:text-[#999999]" /> // Dark mode color for Menu icon
+                  <Menu size={20} className="text-gray-700 dark:text-white" /> // Dark mode color for Menu icon
                 )}
               </button>
             </div>
@@ -241,7 +241,7 @@ const Header = () => {
                         animation: isMobileMenuOpen ? 'slideInUp 0.4s ease-out forwards' : 'none'
                       }}
                     >
-                      <Icon size={18} className="text-gray-700 dark:text-[#999999]" /> {/* Dark mode colors for icon */}
+                      <Icon size={18} className="text-gray-700 dark:text-white" /> {/* Dark mode colors for icon */}
                     </a>
                   );
                 })}
