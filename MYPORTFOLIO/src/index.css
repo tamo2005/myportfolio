@@ -1,1 +1,41 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+@import "tailwindcss/preflight";
+@import "tailwindcss/utilities";
+
+:root {
+  --bg-main: #FFF6ED;
+  --bg-card: #FFFFFF;
+  --text-primary: #222222;
+  --text-secondary: #555555;
+  --highlight: #FF4C1B;
+  --button-bg: #FF6B00;
+  --button-text: #FFFFFF;
+  --button-hover-glow: 0 0 10px #E55C00;
+}
+
+.dark {
+  --bg-main: #0D0D0D;
+  --bg-card: #1A1A1A;
+  --text-primary: #FFFFFF;
+  --text-secondary: #B3B3B3;
+  --highlight: #FF4C1B;
+  --button-bg: #FF4C1B;
+  --button-text: #FFFFFF;
+  --button-hover-glow: 0 0 10px #FF4C1B;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+}
+
+.neon-glow {
+  box-shadow: 0 0 15px var(--highlight);
+}
+
+.button-glow:hover {
+  box-shadow: var(--button-hover-glow);
+}
