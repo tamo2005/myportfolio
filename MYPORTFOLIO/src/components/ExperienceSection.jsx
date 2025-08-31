@@ -140,30 +140,38 @@ const ExperienceSection = () => {
     : certifications.filter(cert => cert.category === selectedCategory);
 
   return (
-    <section id="experience" className="py-20 bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden">
-      <div className="container mx-auto px-4 sm:px-6">
+    <section id="experience" className="py-20 bg-[#0A0A0A] text-white relative overflow-hidden">
+      {/* One UI 7 background elements */}
+      <div className="absolute inset-0">
+        <div className="absolute top-1/4 left-10 w-48 h-48 bg-gradient-to-r from-[#FF6B47]/8 to-[#FF4500]/4 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-10 w-56 h-56 bg-gradient-to-r from-[#FF8C42]/6 to-[#FF6347]/3 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-r from-[#FFB347]/4 to-[#FF7F50]/2 rounded-full blur-3xl animate-pulse delay-2000"></div>
+      </div>
+
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {/* Header */}
         <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-orange-600 to-orange-800 bg-clip-text text-transparent mb-4">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-black bg-gradient-to-r from-white via-[#FF6B47] to-white bg-clip-text text-transparent mb-6"
+              style={{ textShadow: '0 0 30px rgba(255, 107, 71, 0.3)' }}>
             Experience & Certifications
           </h2>
-          <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto px-4">
+          <p className="text-xl text-gray-400 max-w-3xl mx-auto font-light">
             My professional journey and academic achievements in technology
           </p>
         </div>
 
-        {/* Tab Navigation - Fixed Responsiveness */}
+        {/* Tab Navigation - One UI 7 style */}
         <div className={`flex justify-center mb-12 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="bg-white/80 backdrop-blur-sm rounded-full p-1 sm:p-2 shadow-lg border border-orange-200 w-full max-w-md mx-4">
+          <div className="backdrop-blur-one-ui rounded-3xl p-2 border border-[#333]/30 w-full max-w-md mx-4">
             <div className="flex w-full">
               {['experience', 'certifications'].map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={`flex-1 px-3 sm:px-6 lg:px-8 py-2 sm:py-3 rounded-full text-sm sm:text-base lg:text-lg font-semibold transition-all duration-300 flex items-center justify-center ${
+                  className={`flex-1 px-4 sm:px-6 lg:px-8 py-3 sm:py-4 rounded-2xl text-sm sm:text-base lg:text-lg font-semibold transition-all duration-300 flex items-center justify-center ${
                     activeTab === tab
-                      ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg transform scale-105'
-                      : 'text-gray-600 hover:text-orange-600 hover:bg-orange-50'
+                      ? 'bg-gradient-to-r from-[#FF6B47] to-[#FF4500] text-white glow-orange'
+                      : 'text-gray-400 hover:text-white hover:bg-[#1A1A1A]/30'
                   }`}
                 >
                   {tab === 'experience' ? (
@@ -192,44 +200,44 @@ const ExperienceSection = () => {
               {experiences.map((exp, index) => (
                 <div
                   key={index}
-                  className="group relative bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-orange-200 p-4 sm:p-6 lg:p-8 mb-8 hover:shadow-2xl hover:scale-105 transition-all duration-500 hover:bg-gradient-to-r hover:from-orange-50 hover:to-orange-100"
+                  className="group relative backdrop-blur-one-ui rounded-3xl p-6 sm:p-8 lg:p-10 mb-8 border border-[#333]/30 hover:border-[#FF6B47]/40 transition-all duration-500 hover:glow-orange overflow-hidden"
                   style={{ animationDelay: `${index * 200}ms` }}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 to-orange-600/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#FF6B47]/5 to-[#FF4500]/3 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   
                   <div className="relative z-10">
                     <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-6 space-y-4 sm:space-y-0">
                       <div className="flex items-center space-x-4">
-                        <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full flex items-center justify-center">
-                          <Building className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                        <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-r from-[#FF6B47] to-[#FF4500] rounded-2xl flex items-center justify-center shadow-lg glow-orange">
+                          <Building className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
                         </div>
                         <div>
-                          <h3 className="text-xl sm:text-2xl font-bold text-gray-800 group-hover:text-orange-600 transition-colors duration-300">
+                          <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-[#FF6B47] transition-colors duration-300">
                             {exp.title}
                           </h3>
-                          <p className="text-orange-600 font-semibold text-base sm:text-lg">{exp.company}</p>
+                          <p className="text-[#FF6B47] font-semibold text-base sm:text-lg">{exp.company}</p>
                         </div>
                       </div>
                       <div className="text-left sm:text-right">
-                        <span className="inline-block bg-gradient-to-r from-orange-500 to-orange-600 text-white px-3 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-semibold">
+                        <span className="inline-block bg-gradient-to-r from-[#FF6B47] to-[#FF4500] text-white px-4 py-2 rounded-2xl text-sm font-semibold glow-orange">
                           {exp.type}
                         </span>
-                        <p className="text-gray-500 mt-2 flex items-center sm:justify-end">
+                        <p className="text-gray-400 mt-2 flex items-center sm:justify-end">
                           <Calendar className="w-4 h-4 mr-1" />
                           {exp.duration}
                         </p>
                       </div>
                     </div>
 
-                    <p className="text-gray-700 text-base sm:text-lg mb-6 leading-relaxed">{exp.description}</p>
+                    <p className="text-gray-300 text-base sm:text-lg mb-6 leading-relaxed font-light">{exp.description}</p>
 
                     <div className="mb-6">
-                      <h4 className="text-base sm:text-lg font-semibold text-gray-800 mb-3">Technologies Used:</h4>
+                      <h4 className="text-base sm:text-lg font-semibold text-white mb-3">Technologies Used:</h4>
                       <div className="flex flex-wrap gap-2">
                         {exp.technologies.map((tech, techIndex) => (
                           <span
                             key={techIndex}
-                            className="bg-orange-100 text-orange-800 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium hover:bg-orange-200 transition-colors duration-200"
+                            className="bg-[#1A1A1A]/60 text-[#FF6B47] px-3 py-1 rounded-xl text-xs sm:text-sm font-medium border border-[#333]/50 hover:border-[#FF6B47]/50 transition-colors duration-200"
                           >
                             {tech}
                           </span>
@@ -238,12 +246,12 @@ const ExperienceSection = () => {
                     </div>
 
                     <div>
-                      <h4 className="text-base sm:text-lg font-semibold text-gray-800 mb-3">Key Achievements:</h4>
+                      <h4 className="text-base sm:text-lg font-semibold text-white mb-3">Key Achievements:</h4>
                       <ul className="space-y-2">
                         {exp.achievements.map((achievement, achIndex) => (
-                          <li key={achIndex} className="flex items-start text-gray-700">
-                            <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-orange-500 mr-3 flex-shrink-0 mt-0.5" />
-                            <span className="text-sm sm:text-base">{achievement}</span>
+                          <li key={achIndex} className="flex items-start text-gray-300">
+                            <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-[#FF6B47] mr-3 flex-shrink-0 mt-0.5" />
+                            <span className="text-sm sm:text-base font-light">{achievement}</span>
                           </li>
                         ))}
                       </ul>
@@ -260,15 +268,15 @@ const ExperienceSection = () => {
           <div className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             {/* Category Filter */}
             <div className="flex justify-center mb-8 px-4">
-              <div className="flex flex-wrap justify-center gap-2 max-w-2xl">
+              <div className="flex flex-wrap justify-center gap-2 max-w-2xl backdrop-blur-one-ui p-2 rounded-3xl border border-[#333]/30">
                 {categories.map((category) => (
                   <button
                     key={category}
                     onClick={() => setSelectedCategory(category)}
-                    className={`px-3 sm:px-4 lg:px-6 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 ${
+                    className={`px-4 sm:px-5 lg:px-6 py-2 sm:py-3 rounded-2xl text-xs sm:text-sm font-semibold transition-all duration-300 ${
                       selectedCategory === category
-                        ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg'
-                        : 'bg-white/80 text-gray-600 hover:text-orange-600 hover:bg-orange-50 border border-orange-200'
+                        ? 'bg-gradient-to-r from-[#FF6B47] to-[#FF4500] text-white glow-orange'
+                        : 'text-gray-400 hover:text-white hover:bg-[#1A1A1A]/30'
                     }`}
                   >
                     {category}
@@ -282,36 +290,35 @@ const ExperienceSection = () => {
               {filteredCertifications.map((cert, index) => (
                 <div
                   key={index}
-                  className="group bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-orange-200 overflow-hidden hover:shadow-2xl hover:scale-105 transition-all duration-500"
+                  className="group backdrop-blur-one-ui rounded-3xl border border-[#333]/30 overflow-hidden hover:border-[#FF6B47]/40 hover:glow-orange transition-all duration-500 hover:scale-105"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   {/* Certificate Image */}
-                  <div className="relative h-40 sm:h-48 overflow-hidden">
+                  <div className="relative h-48 sm:h-52 overflow-hidden">
                     <img
                       src={cert.image}
                       alt={cert.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                       onError={(e) => {
-                        // Fallback to placeholder if image fails to load
                         e.target.style.display = 'none';
                         e.target.nextSibling.style.display = 'flex';
                       }}
                     />
                     
-                    {/* Fallback placeholder (hidden by default) */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-orange-500 to-orange-600 items-center justify-center hidden">
+                    {/* Fallback placeholder */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#FF6B47] to-[#FF4500] items-center justify-center hidden">
                       <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300"></div>
                       <div className="absolute inset-0 flex items-center justify-center">
                         <div className="text-white text-center">
-                          <Award className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-2 opacity-80" />
-                          <p className="text-xs sm:text-sm opacity-80">Certificate Image</p>
+                          <Award className="w-16 h-16 mx-auto mb-2 opacity-80" />
+                          <p className="text-sm opacity-80">Certificate Image</p>
                         </div>
                       </div>
                     </div>
                     
                     {/* Grade Badge */}
-                    <div className="absolute top-3 sm:top-4 right-3 sm:right-4">
-                      <span className="bg-white/90 backdrop-blur-sm text-orange-600 px-2 sm:px-3 py-1 rounded-full text-xs font-bold flex items-center">
+                    <div className="absolute top-4 right-4">
+                      <span className="backdrop-blur-md bg-white/90 text-[#FF6B47] px-3 py-1 rounded-2xl text-xs font-bold flex items-center glow-orange">
                         <Star className="w-3 h-3 mr-1" />
                         {cert.grade}
                       </span>
@@ -320,18 +327,18 @@ const ExperienceSection = () => {
 
                   <div className="p-4 sm:p-6">
                     <div className="mb-4">
-                      <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-2 group-hover:text-orange-600 transition-colors duration-300 line-clamp-2">
+                      <h3 className="text-lg sm:text-xl font-bold text-white mb-2 group-hover:text-[#FF6B47] transition-colors duration-300 line-clamp-2">
                         {cert.title}
                       </h3>
-                      <p className="text-orange-600 font-semibold mb-1 text-sm sm:text-base line-clamp-1">{cert.issuer}</p>
-                      <p className="text-gray-500 text-xs sm:text-sm flex items-center">
+                      <p className="text-[#FF6B47] font-semibold mb-1 text-sm sm:text-base line-clamp-1">{cert.issuer}</p>
+                      <p className="text-gray-400 text-xs sm:text-sm flex items-center">
                         <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
                         {cert.date}
                       </p>
                     </div>
 
                     <div className="mb-4">
-                      <span className="inline-block bg-gradient-to-r from-orange-500 to-orange-600 text-white px-2 sm:px-3 py-1 rounded-full text-xs font-semibold">
+                      <span className="inline-block bg-gradient-to-r from-[#FF6B47] to-[#FF4500] text-white px-3 py-1 rounded-2xl text-xs font-semibold glow-orange">
                         {cert.category}
                       </span>
                     </div>
@@ -341,7 +348,7 @@ const ExperienceSection = () => {
                         href={cert.verifyLink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center text-orange-600 hover:text-orange-700 font-semibold text-xs sm:text-sm transition-colors duration-200 group-hover:underline"
+                        className="inline-flex items-center text-[#FF6B47] hover:text-white font-semibold text-xs sm:text-sm transition-colors duration-200 group-hover:underline"
                       >
                         <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
                         Verify Certificate
@@ -354,31 +361,31 @@ const ExperienceSection = () => {
           </div>
         )}
 
-        {/* Floating Stats */}
-        <div className={`mt-16 text-center transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        {/* Stats Section - One UI 7 style */}
+        <div className={`mt-16 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
             <div className="group">
-              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 sm:p-6 shadow-lg border border-orange-200 hover:shadow-xl transition-all duration-300">
-                <div className="text-2xl sm:text-3xl font-bold text-orange-600 mb-2">10</div>
-                <div className="text-gray-600 text-sm sm:text-base">Certifications</div>
+              <div className="backdrop-blur-one-ui rounded-3xl p-4 sm:p-6 border border-[#333]/30 hover:border-[#FF6B47]/40 hover:glow-orange transition-all duration-300 text-center">
+                <div className="text-3xl sm:text-4xl font-black text-[#FF6B47] mb-2">10</div>
+                <div className="text-gray-400 text-sm sm:text-base font-light">Certifications</div>
               </div>
             </div>
             <div className="group">
-              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 sm:p-6 shadow-lg border border-orange-200 hover:shadow-xl transition-all duration-300">
-                <div className="text-2xl sm:text-3xl font-bold text-orange-600 mb-2">5</div>
-                <div className="text-gray-600 text-sm sm:text-base">IIT Courses</div>
+              <div className="backdrop-blur-one-ui rounded-3xl p-4 sm:p-6 border border-[#333]/30 hover:border-[#FF6B47]/40 hover:glow-orange transition-all duration-300 text-center">
+                <div className="text-3xl sm:text-4xl font-black text-[#FF6B47] mb-2">5</div>
+                <div className="text-gray-400 text-sm sm:text-base font-light">IIT Courses</div>
               </div>
             </div>
             <div className="group">
-              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 sm:p-6 shadow-lg border border-orange-200 hover:shadow-xl transition-all duration-300">
-                <div className="text-2xl sm:text-3xl font-bold text-orange-600 mb-2">100%</div>
-                <div className="text-gray-600 text-sm sm:text-base">Completion Rate</div>
+              <div className="backdrop-blur-one-ui rounded-3xl p-4 sm:p-6 border border-[#333]/30 hover:border-[#FF6B47]/40 hover:glow-orange transition-all duration-300 text-center">
+                <div className="text-3xl sm:text-4xl font-black text-[#FF6B47] mb-2">100%</div>
+                <div className="text-gray-400 text-sm sm:text-base font-light">Completion Rate</div>
               </div>
             </div>
             <div className="group">
-              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 sm:p-6 shadow-lg border border-orange-200 hover:shadow-xl transition-all duration-300">
-                <div className="text-2xl sm:text-3xl font-bold text-orange-600 mb-2">Elite</div>
-                <div className="text-gray-600 text-sm sm:text-base">Grade Level</div>
+              <div className="backdrop-blur-one-ui rounded-3xl p-4 sm:p-6 border border-[#333]/30 hover:border-[#FF6B47]/40 hover:glow-orange transition-all duration-300 text-center">
+                <div className="text-3xl sm:text-4xl font-black text-[#FF6B47] mb-2">Elite</div>
+                <div className="text-gray-400 text-sm sm:text-base font-light">Grade Level</div>
               </div>
             </div>
           </div>

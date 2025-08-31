@@ -6,214 +6,239 @@ const SkillsSection = () => {
   const [showMessage, setShowMessage] = useState(false);
   const [currentMessage, setCurrentMessage] = useState('');
   const [isVisible, setIsVisible] = useState(false);
+  const [activeCategory, setActiveCategory] = useState('All');
 
   const skills = [
     { 
       name: 'Python', 
       level: 85, 
       category: 'Programming',
-      color: 'from-orange-400 to-orange-600',
+      color: 'from-[#FF6B47] to-[#FF4500]',
       icon: '🐍',
-      message: "Ssss-seriously skilled with Python! 🐍 I can make data dance and algorithms sing!"
+      message: "Ssss-seriously skilled with Python! I can make data dance and algorithms sing!"
     },
     { 
       name: 'JavaScript', 
       level: 80, 
       category: 'Programming',
-      color: 'from-orange-500 to-orange-700',
+      color: 'from-[#FF8C42] to-[#FF6347]',
       icon: '⚡',
-      message: "JavaScript is my superpower! ⚡ I bring websites to life with just a few keystrokes!"
+      message: "JavaScript is my superpower! I bring websites to life with just a few keystrokes!"
     },
     { 
       name: 'React.js', 
       level: 85, 
       category: 'Frontend',
-      color: 'from-orange-400 to-orange-600',
+      color: 'from-[#FF6B47] to-[#FF4500]',
       icon: '⚛️',
-      message: "React and I are like best friends! ⚛️ We create amazing user experiences together!"
+      message: "React and I are like best friends! We create amazing user experiences together!"
     },
     { 
       name: 'C/C++', 
       level: 75, 
       category: 'Programming',
-      color: 'from-orange-500 to-orange-700',
+      color: 'from-[#FFB347] to-[#FF7F50]',
       icon: '🔧',
-      message: "C++ is my metal! 🔧 Low-level programming? Challenge accepted!"
+      message: "C++ is my metal! Low-level programming? Challenge accepted!"
     },
     { 
       name: 'HTML/CSS', 
       level: 90, 
       category: 'Frontend',
-      color: 'from-orange-300 to-orange-500',
+      color: 'from-[#FF8C42] to-[#FF6347]',
       icon: '🎨',
-      message: "HTML & CSS are my paintbrush! 🎨 I craft beautiful web experiences pixel by pixel!"
+      message: "HTML & CSS are my paintbrush! I craft beautiful web experiences pixel by pixel!"
     },
     { 
       name: 'Tailwind CSS', 
       level: 80, 
       category: 'Frontend',
-      color: 'from-orange-400 to-orange-600',
+      color: 'from-[#FF6B47] to-[#FF4500]',
       icon: '🌪️',
-      message: "Tailwind makes me feel like a styling tornado! 🌪️ Utility-first CSS is pure magic!"
+      message: "Tailwind makes me feel like a styling tornado! Utility-first CSS is pure magic!"
     },
     { 
       name: 'Pandas', 
       level: 70, 
       category: 'AI/ML',
-      color: 'from-orange-500 to-orange-700',
+      color: 'from-[#FFB347] to-[#FF7F50]',
       icon: '🐼',
-      message: "Pandas and I are data BFFs! 🐼 We turn messy data into beautiful insights!"
+      message: "Pandas and I are data BFFs! We turn messy data into beautiful insights!"
     },
     { 
       name: 'Matplotlib', 
       level: 65, 
       category: 'AI/ML',
-      color: 'from-orange-600 to-orange-800',
+      color: 'from-[#FF8C42] to-[#FF6347]',
       icon: '📊',
-      message: "With Matplotlib, I'm a data visualization wizard! 📊 Charts have never looked so good!"
+      message: "With Matplotlib, I'm a data visualization wizard! Charts have never looked so good!"
     },
   ];
 
-  const categories = [...new Set(skills.map(skill => skill.category))];
+  const categories = ['All', ...new Set(skills.map(skill => skill.category))];
 
   useEffect(() => {
     setIsVisible(true);
     const timer = setTimeout(() => {
       setAnimatedSkills(skills.map((_, index) => index));
-    }, 300);
+    }, 500);
+
     return () => clearTimeout(timer);
   }, []);
 
-  const handleSkillClick = (skill) => {
-    setSelectedSkill(skill);
+  const handleSkillClick = (skill, index) => {
+    setSelectedSkill(index);
     setCurrentMessage(skill.message);
     setShowMessage(true);
     
-    // Auto-hide message after 4 seconds
     setTimeout(() => {
       setShowMessage(false);
+      setSelectedSkill(null);
     }, 4000);
   };
 
-  const getCategorySkills = (category) => {
-    return skills.filter(skill => skill.category === category);
-  };
+  const filteredSkills = activeCategory === 'All' ? skills : skills.filter(skill => skill.category === activeCategory);
 
   return (
-    <section id="skills" className="py-20 bg-gradient-to-br from-orange-50 to-orange-100 min-h-screen relative overflow-hidden">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-20 -left-20 w-96 h-96 bg-gradient-to-br from-orange-200/20 to-orange-300/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute -bottom-20 -right-20 w-96 h-96 bg-gradient-to-br from-orange-300/20 to-orange-400/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+    <section id="skills" className="py-20 bg-[#0A0A0A] text-white relative overflow-hidden">
+      {/* One UI 7 background elements */}
+      <div className="absolute inset-0">
+        <div className="absolute top-1/4 left-10 w-32 h-32 bg-gradient-to-r from-[#FF6B47]/10 to-[#FF4500]/5 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-10 w-40 h-40 bg-gradient-to-r from-[#FF8C42]/8 to-[#FF6347]/4 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-gradient-to-r from-[#FFB347]/5 to-[#FF7F50]/3 rounded-full blur-3xl animate-pulse delay-2000"></div>
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {/* Header */}
-        <div className={`text-center mb-16 transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-          <h2 className="text-5xl font-bold bg-gradient-to-r from-orange-600 to-orange-800 bg-clip-text text-transparent mb-4">
-            Skills & Technologies
+        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-black bg-gradient-to-r from-white via-[#FF6B47] to-white bg-clip-text text-transparent mb-6"
+              style={{ textShadow: '0 0 30px rgba(255, 107, 71, 0.3)' }}>
+            Skills & Expertise
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Click on any skill to discover my expertise level and get a fun message! 🚀
+          <p className="text-xl text-gray-400 max-w-3xl mx-auto font-light">
+            Technologies I've mastered and tools I use to bring ideas to life
           </p>
         </div>
 
-        {/* Fun Message Display */}
-        {showMessage && (
-          <div className="fixed top-20 left-1/2 transform -translate-x-1/2 z-50 animate-bounce">
-            <div className="bg-white/90 backdrop-blur-lg p-6 rounded-2xl shadow-2xl border border-orange-200 max-w-md mx-auto">
-              <div className="flex items-center space-x-3">
-                <span className="text-3xl animate-spin">{selectedSkill?.icon}</span>
-                <p className="text-gray-800 font-medium">{currentMessage}</p>
-              </div>
-              <button 
-                onClick={() => setShowMessage(false)}
-                className="absolute top-2 right-2 text-gray-400 hover:text-gray-600 transition-colors"
+        {/* Category Filter - One UI 7 style */}
+        <div className={`flex justify-center mb-12 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div className="flex flex-wrap justify-center gap-3 backdrop-blur-one-ui p-2 rounded-3xl border border-[#333]/30">
+            {categories.map((category, index) => (
+              <button
+                key={category}
+                onClick={() => setActiveCategory(category)}
+                className={`px-6 py-3 rounded-2xl font-semibold transition-all duration-300 ${
+                  activeCategory === category
+                    ? 'bg-gradient-to-r from-[#FF6B47] to-[#FF4500] text-white glow-orange'
+                    : 'text-gray-400 hover:text-white hover:bg-[#1A1A1A]/50'
+                }`}
+                style={{ animationDelay: `${index * 100}ms` }}
               >
-                ✕
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* Skills by Category */}
-        <div className="space-y-12">
-          {categories.map((category, categoryIndex) => (
-            <div 
-              key={category}
-              className={`transform transition-all duration-1000 delay-${categoryIndex * 200} ${
-                isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-              }`}
-            >
-              <h3 className="text-2xl font-bold text-orange-700 mb-6 text-center">
                 {category}
-              </h3>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {getCategorySkills(category).map((skill, index) => (
-                  <div
-                    key={skill.name}
-                    onClick={() => handleSkillClick(skill)}
-                    className={`group relative bg-white/70 backdrop-blur-sm p-6 rounded-2xl shadow-lg hover:shadow-2xl transform transition-all duration-500 cursor-pointer hover:-translate-y-2 hover:scale-105 border border-orange-100 ${
-                      animatedSkills.includes(skills.indexOf(skill)) ? 'animate-fade-in' : ''
-                    }`}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Skills Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
+          {filteredSkills.map((skill, index) => (
+            <div
+              key={skill.name}
+              className={`group relative backdrop-blur-one-ui rounded-3xl p-6 border border-[#333]/30 hover:border-[#FF6B47]/40 transition-all duration-500 hover:scale-105 cursor-pointer transform ${
+                animatedSkills.includes(index) ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'
+              } ${selectedSkill === index ? 'glow-orange-strong scale-110' : 'hover:glow-orange'}`}
+              style={{ 
+                transitionDelay: `${index * 150}ms`,
+                backgroundImage: selectedSkill === index ? 
+                  `linear-gradient(45deg, rgba(255, 107, 71, 0.1), rgba(255, 69, 0, 0.05))` : 'none'
+              }}
+              onClick={() => handleSkillClick(skill, index)}
+            >
+              {/* Skill Header */}
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center space-x-4">
+                  <div className={`p-3 rounded-2xl bg-gradient-to-r ${skill.color} shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                    <span className="text-2xl">{skill.icon}</span>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-white group-hover:text-[#FF6B47] transition-colors duration-300">
+                      {skill.name}
+                    </h3>
+                    <p className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
+                      {skill.category}
+                    </p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="text-2xl font-bold text-[#FF6B47] group-hover:text-white transition-colors duration-300">
+                    {skill.level}%
+                  </div>
+                </div>
+              </div>
+
+              {/* Progress Bar - One UI 7 style */}
+              <div className="relative">
+                <div className="w-full h-3 bg-[#1A1A1A] rounded-full overflow-hidden">
+                  <div 
+                    className={`h-full bg-gradient-to-r ${skill.color} rounded-full transition-all duration-1000 ease-out relative`}
                     style={{ 
-                      animationDelay: `${index * 150}ms`,
-                      background: selectedSkill?.name === skill.name ? 'linear-gradient(135deg, #fed7aa, #ffedd5)' : ''
+                      width: animatedSkills.includes(index) ? `${skill.level}%` : '0%',
+                      transitionDelay: `${index * 200 + 500}ms`
                     }}
                   >
-                    {/* Skill Icon */}
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center space-x-3">
-                        <span className="text-2xl group-hover:animate-bounce transition-all duration-300">
-                          {skill.icon}
-                        </span>
-                        <h4 className="text-xl font-semibold text-gray-800 group-hover:text-orange-700 transition-colors">
-                          {skill.name}
-                        </h4>
-                      </div>
-                      <span className="text-sm font-medium text-orange-600 bg-orange-100 px-3 py-1 rounded-full">
-                        {skill.level}%
-                      </span>
-                    </div>
-
-                    {/* Progress Bar */}
-                    <div className="relative">
-                      <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-                        <div 
-                          className={`h-3 rounded-full bg-gradient-to-r ${skill.color} transition-all duration-1000 ease-out relative overflow-hidden`}
-                          style={{ 
-                            width: animatedSkills.includes(skills.indexOf(skill)) ? `${skill.level}%` : '0%'
-                          }}
-                        >
-                          {/* Shimmer effect */}
-                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent transform -skew-x-12 animate-shimmer"></div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Hover Glow Effect */}
-                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-orange-400/0 to-orange-600/0 group-hover:from-orange-400/10 group-hover:to-orange-600/10 transition-all duration-300 pointer-events-none"></div>
-                    
-                    {/* Click Me Hint */}
-                    <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <span className="text-xs text-orange-600 font-medium bg-orange-100 px-2 py-1 rounded-full">
-                        Click me! 🎉
-                      </span>
-                    </div>
+                    {/* Shimmer effect */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 animate-shimmer"></div>
                   </div>
-                ))}
+                </div>
+                
+                {/* Skill level indicator */}
+                <div 
+                  className="absolute top-0 w-3 h-3 bg-white rounded-full border-2 border-[#FF6B47] transition-all duration-1000 ease-out glow-orange"
+                  style={{ 
+                    left: animatedSkills.includes(index) ? `calc(${skill.level}% - 6px)` : '-6px',
+                    transitionDelay: `${index * 200 + 800}ms`
+                  }}
+                />
               </div>
+
+              {/* Hover effect overlay */}
+              <div className={`absolute inset-0 rounded-3xl bg-gradient-to-r ${skill.color}/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
             </div>
           ))}
         </div>
 
-        {/* Footer Message */}
-        <div className={`text-center mt-16 transform transition-all duration-1000 delay-1000 ${
-          isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-        }`}>
-          <p className="text-gray-600 italic">
-            "Every skill is a superpower waiting to be unleashed! 💪✨"
-          </p>
+        {/* Fun Message Display - One UI 7 style */}
+        {showMessage && (
+          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 animate-fade-in">
+            <div className="backdrop-blur-one-ui p-6 rounded-3xl border border-[#FF6B47]/30 max-w-md mx-auto text-center glow-orange-strong">
+              <div className="text-4xl mb-4 animate-bounce">
+                {skills.find((_, i) => i === selectedSkill)?.icon}
+              </div>
+              <p className="text-white font-semibold text-lg leading-relaxed">
+                {currentMessage}
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Skills Summary - One UI 7 style */}
+        <div className={`grid grid-cols-2 md:grid-cols-4 gap-6 transition-all duration-1000 delay-800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          {[
+            { number: '8+', label: 'Technologies', icon: '🛠️' },
+            { number: '3+', label: 'Years Learning', icon: '📚' },
+            { number: '15+', label: 'Projects', icon: '🚀' },
+            { number: '∞', label: 'Passion Level', icon: '❤️' }
+          ].map((stat, index) => (
+            <div 
+              key={stat.label}
+              className="text-center backdrop-blur-one-ui p-6 rounded-3xl border border-[#333]/30 hover:border-[#FF6B47]/30 transition-all duration-300 hover:scale-105 hover:glow-orange"
+            >
+              <div className="text-3xl mb-2">{stat.icon}</div>
+              <div className="text-3xl font-bold text-[#FF6B47] mb-2">{stat.number}</div>
+              <div className="text-gray-400 font-medium">{stat.label}</div>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -221,11 +246,11 @@ const SkillsSection = () => {
         @keyframes fade-in {
           from {
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(20px) scale(0.9);
           }
           to {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
           }
         }
         

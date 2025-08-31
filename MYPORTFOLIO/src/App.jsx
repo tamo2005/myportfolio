@@ -1,31 +1,35 @@
-import { useEffect } from 'react';
-import Header from './components/Header';
-import HeroSection from './components/HeroSection';
-import AboutSection from './components/AboutSection';
-import SkillsSection from './components/SkillsSection';
-import ProjectsSection from './components/ProjectsSection';
-import ExperienceSection from './components/ExperienceSection';
-import ContactSection from './components/ContactSection';
-import Footer from './components/Footer';
+import React, { useEffect } from 'react';
+import Layout from './components/Layout.jsx';
+import Header from './components/Header.jsx';
+import HeroSection from './components/HeroSection.jsx';
+import AboutSection from './components/AboutSection.jsx';
+import SkillsSection from './components/SkillsSection.jsx';
+import ProjectsSection from './components/ProjectsSection.jsx';
+import ExperienceSection from './components/ExperienceSection.jsx';
+import ContactSection from './components/ContactSection.jsx';
+import Footer from './components/Footer.jsx';
 import './App.css';
 
 const App = () => {
   useEffect(() => {
-    document.title = 'TAMAGNO'; // ✅ This sets the browser tab title
+    document.title = 'TAMAGNO';
   }, []);
 
   return (
-    <div className="min-h-screen">
+    <Layout>
       <Header />
-      <HeroSection />
-      <AboutSection />
-      <SkillsSection />
-      <ProjectsSection />
-      <ExperienceSection />
-      <ContactSection />
+      <main>
+        <HeroSection />
+        <AboutSection />
+        <SkillsSection />
+        <ProjectsSection />
+        <ExperienceSection />
+        <ContactSection />
+      </main>
       <Footer />
-    </div>
+    </Layout>
   );
 };
 
 export default App;
+
