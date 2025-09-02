@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ExternalLink, Github, Code, Heart, Mail, Clock, Play, Pause, Star, GitBranch, Users, Calendar } from 'lucide-react';
+import { ExternalLink, Github, Code, Heart, Mail, Clock, Play, Pause, Star, GitBranch, Users, Calendar, Construction } from 'lucide-react';
 
 const ProjectsSection = () => {
   const [hoveredProject, setHoveredProject] = useState(null);
@@ -18,7 +18,7 @@ const ProjectsSection = () => {
       icon: <Star className="w-6 h-6" />,
       gradient: 'from-[#FF6B47] to-[#FF4500]',
       demo: null,
-      github: null,
+      github: null, // Work in progress
       features: ['AI-powered grading', 'Real-time analytics', 'Student feedback system', 'Progress tracking'],
       metrics: { accuracy: '95%', speed: '10x faster', satisfaction: '98%' }
     },
@@ -46,7 +46,7 @@ const ProjectsSection = () => {
       icon: <Clock className="w-6 h-6" />,
       gradient: 'from-[#FFB347] to-[#FF7F50]',
       demo: 'https://deadline-death-predictor.vercel.app/',
-      github: null,
+      github: 'https://deadline-death-predictor.vercel.app/', // Using demo link as main link
       features: ['ML prediction model', 'Health data analysis', 'Risk visualization', 'Interactive dashboard'],
       metrics: { accuracy: '87%', precision: '82%', recall: '89%' }
     },
@@ -108,43 +108,44 @@ const ProjectsSection = () => {
       onMouseEnter={() => setHoveredProject(index)}
       onMouseLeave={() => setHoveredProject(null)}
     >
-      {/* Main Card - One UI 7 style */}
-      <div className="relative backdrop-blur-one-ui rounded-3xl p-6 sm:p-8 border border-[#333]/30 hover:border-[#FF6B47]/40 transition-all duration-500 hover:glow-orange overflow-hidden">
+      {/* Main Card - One UI 7 style - Fixed width for proper grid */}
+      <div className="relative backdrop-blur-md bg-[#1A1A1A]/30 rounded-2xl p-6 border border-[#333]/30 hover:border-[#FF6B47]/40 transition-all duration-500 hover:shadow-lg hover:shadow-[#FF6B47]/20 overflow-hidden h-full flex flex-col w-full max-w-none">
         
         {/* Animated Background */}
-        <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient}/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl`} />
+        <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient}/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl`} />
         
         {/* Floating Particles */}
         <div className="absolute inset-0 overflow-hidden">
-          {[...Array(5)].map((_, i) => (
+          {[...Array(3)].map((_, i) => (
             <div
               key={i}
-              className="absolute w-2 h-2 bg-[#FF6B47] rounded-full animate-pulse opacity-20 group-hover:opacity-60 transition-opacity duration-500"
+              className="absolute w-1.5 h-1.5 bg-[#FF6B47] rounded-full animate-pulse opacity-20 group-hover:opacity-60 transition-opacity duration-500"
               style={{
-                left: `${20 + i * 20}%`,
-                top: `${15 + i * 15}%`,
+                left: `${20 + i * 30}%`,
+                top: `${15 + i * 20}%`,
                 animationDelay: `${i * 0.5}s`,
-                filter: 'drop-shadow(0 0 4px #FF6B47)'
+                filter: 'drop-shadow(0 0 2px #FF6B47)'
               }}
             />
           ))}
         </div>
 
         {/* Header */}
-        <div className="relative z-10 flex items-start justify-between mb-6">
-          <div className="flex items-center gap-4 flex-1 min-w-0">
-            <div className={`p-3 sm:p-4 rounded-2xl bg-gradient-to-r ${project.gradient} shadow-lg group-hover:scale-110 transition-transform duration-300 flex-shrink-0 glow-orange`}>
+        <div className="relative z-10 flex items-start justify-between mb-4">
+          <div className="flex items-center gap-3 flex-1 min-w-0">
+            <div className={`p-3 rounded-xl bg-gradient-to-r ${project.gradient} shadow-lg group-hover:scale-110 transition-transform duration-300 flex-shrink-0`}
+                 style={{ boxShadow: '0 0 15px rgba(255, 107, 71, 0.3)' }}>
               {project.icon}
             </div>
             <div className="min-w-0 flex-1">
-              <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-[#FF6B47] transition-colors duration-300 line-clamp-1">
+              <h3 className="text-lg font-bold text-white group-hover:text-[#FF6B47] transition-colors duration-300 line-clamp-1">
                 {project.title}
               </h3>
-              <div className="flex items-center gap-2 mt-2">
-                <span className={`inline-block w-2 h-2 rounded-full ${getStatusColor(project.status)} glow-orange flex-shrink-0`} />
-                <span className="text-sm text-gray-400 font-medium">{project.status}</span>
+              <div className="flex items-center gap-2 mt-1">
+                <span className={`inline-block w-2 h-2 rounded-full ${getStatusColor(project.status)}`} 
+                      style={{ boxShadow: '0 0 5px rgba(255, 107, 71, 0.3)' }} />
+                <span className="text-xs text-gray-400 font-medium">{project.status}</span>
               </div>
-              <p className="text-sm text-gray-500 mt-1 font-light">{project.role}</p>
             </div>
           </div>
           
@@ -157,7 +158,8 @@ const ProjectsSection = () => {
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-xl bg-[#1A1A1A]/80 text-gray-300 hover:text-white hover:bg-[#FF6B47] transition-all duration-300 glow-orange"
+                className="p-2 rounded-lg bg-[#1A1A1A]/80 text-gray-300 hover:text-white hover:bg-[#FF6B47] transition-all duration-300"
+                style={{ boxShadow: '0 0 10px rgba(255, 107, 71, 0.2)' }}
                 aria-label="View GitHub repository"
               >
                 <Github className="w-4 h-4" />
@@ -168,7 +170,8 @@ const ProjectsSection = () => {
                 href={project.demo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-xl bg-[#1A1A1A]/80 text-gray-300 hover:text-white hover:bg-[#FF6B47] transition-all duration-300 glow-orange"
+                className="p-2 rounded-lg bg-[#1A1A1A]/80 text-gray-300 hover:text-white hover:bg-[#FF6B47] transition-all duration-300"
+                style={{ boxShadow: '0 0 10px rgba(255, 107, 71, 0.2)' }}
                 aria-label="View live demo"
               >
                 <ExternalLink className="w-4 h-4" />
@@ -178,37 +181,37 @@ const ProjectsSection = () => {
         </div>
 
         {/* Description */}
-        <div className="relative z-10 mb-6">
-          <p className="text-gray-300 text-sm sm:text-base leading-relaxed font-light line-clamp-3 group-hover:line-clamp-none transition-all duration-300">
+        <div className="relative z-10 mb-4 flex-grow">
+          <p className="text-gray-300 text-sm leading-relaxed font-light line-clamp-3 group-hover:line-clamp-4 transition-all duration-300">
             {hoveredProject === index ? project.longDescription : project.description}
           </p>
         </div>
 
         {/* Tech Stack */}
-        <div className="relative z-10 mb-6">
-          <div className="flex flex-wrap gap-2">
-            {project.tech.slice(0, hoveredProject === index ? project.tech.length : 4).map((tech, techIndex) => (
+        <div className="relative z-10 mb-4">
+          <div className="flex flex-wrap gap-1.5">
+            {project.tech.slice(0, 3).map((tech, techIndex) => (
               <span
                 key={techIndex}
-                className="px-3 py-1 text-xs font-medium bg-[#1A1A1A]/60 text-[#FF6B47] rounded-xl border border-[#333]/50 hover:border-[#FF6B47]/50 transition-colors duration-300"
+                className="px-2 py-1 text-xs font-medium bg-[#1A1A1A]/60 text-[#FF6B47] rounded-lg border border-[#333]/50 hover:border-[#FF6B47]/50 transition-colors duration-300"
               >
                 {tech}
               </span>
             ))}
-            {!hoveredProject && project.tech.length > 4 && (
-              <span className="px-3 py-1 text-xs font-medium text-gray-400">
-                +{project.tech.length - 4} more
+            {project.tech.length > 3 && (
+              <span className="px-2 py-1 text-xs font-medium text-gray-400">
+                +{project.tech.length - 3}
               </span>
             )}
           </div>
         </div>
 
-        {/* Features - Shown on hover */}
+        {/* Features - Compact version shown on hover */}
         {hoveredProject === index && (
-          <div className="relative z-10 mb-6 animate-fade-in">
-            <h4 className="text-sm font-semibold text-[#FF6B47] mb-3">Key Features:</h4>
-            <div className="grid grid-cols-2 gap-2">
-              {project.features.map((feature, featureIndex) => (
+          <div className="relative z-10 mb-4 animate-fade-in">
+            <h4 className="text-xs font-semibold text-[#FF6B47] mb-2">Key Features:</h4>
+            <div className="grid grid-cols-1 gap-1">
+              {project.features.slice(0, 3).map((feature, featureIndex) => (
                 <div key={featureIndex} className="flex items-center text-xs text-gray-300">
                   <div className="w-1 h-1 bg-[#FF6B47] rounded-full mr-2 flex-shrink-0"></div>
                   {feature}
@@ -218,30 +221,25 @@ const ProjectsSection = () => {
           </div>
         )}
 
-        {/* Metrics - Shown on hover */}
-        {hoveredProject === index && project.metrics && (
-          <div className="relative z-10 mb-6 animate-fade-in">
-            <h4 className="text-sm font-semibold text-[#FF6B47] mb-3">Performance Metrics:</h4>
-            <div className="flex justify-between text-center">
-              {Object.entries(project.metrics).map(([key, value], metricIndex) => (
-                <div key={metricIndex} className="flex-1">
-                  <div className="text-lg font-bold text-white">{value}</div>
-                  <div className="text-xs text-gray-400 capitalize">{key}</div>
-                </div>
-              ))}
+        {/* Bottom Button */}
+        <div className="relative z-10 mt-auto">
+          {project.github ? (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full flex items-center justify-center space-x-2 px-4 py-3 bg-gradient-to-r from-[#FF6B47] to-[#FF4500] text-white rounded-xl font-semibold transition-all duration-300 hover:scale-105 text-sm"
+              style={{ boxShadow: '0 0 15px rgba(255, 107, 71, 0.3)' }}
+            >
+              {project.demo ? <ExternalLink className="w-4 h-4" /> : <Github className="w-4 h-4" />}
+              <span>{project.demo ? 'View Live Demo' : 'View on GitHub'}</span>
+            </a>
+          ) : (
+            <div className="w-full flex items-center justify-center space-x-2 px-4 py-3 bg-gradient-to-r from-gray-600 to-gray-700 text-white rounded-xl font-semibold text-sm cursor-not-allowed">
+              <Construction className="w-4 h-4" />
+              <span>Work In Progress</span>
             </div>
-          </div>
-        )}
-
-        {/* CTA Button */}
-        <div className="relative z-10">
-          <button
-            onClick={handleScheduleMeeting}
-            className="w-full flex items-center justify-center space-x-2 px-4 py-3 bg-gradient-to-r from-[#FF6B47] to-[#FF4500] text-white rounded-2xl font-semibold transition-all duration-300 hover:scale-105 glow-orange hover:glow-orange-strong"
-          >
-            <Calendar className="w-4 h-4" />
-            <span>Discuss This Project</span>
-          </button>
+          )}
         </div>
       </div>
     </div>
@@ -256,9 +254,9 @@ const ProjectsSection = () => {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-[#FFB347]/4 to-[#FF7F50]/2 rounded-full blur-3xl animate-pulse delay-2000"></div>
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 relative z-10">
+      <div className="container mx-auto px-6 sm:px-8 lg:px-12 relative z-10 max-w-7xl">
         {/* Header */}
-        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div className={`text-center mb-20 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-black bg-gradient-to-r from-white via-[#FF6B47] to-white bg-clip-text text-transparent mb-6"
               style={{ textShadow: '0 0 30px rgba(255, 107, 71, 0.3)' }}>
             Featured Projects
@@ -268,8 +266,8 @@ const ProjectsSection = () => {
           </p>
         </div>
 
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+        {/* Projects Grid - Simple and clean side-by-side layout */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16">
           {projects.map((project, index) => (
             <ProjectCard
               key={project.title}
@@ -282,7 +280,7 @@ const ProjectsSection = () => {
 
         {/* Call to Action */}
         <div className={`text-center transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="backdrop-blur-one-ui rounded-3xl p-8 border border-[#333]/30 max-w-4xl mx-auto">
+          <div className="backdrop-blur-md bg-[#1A1A1A]/30 rounded-3xl p-8 border border-[#333]/30 max-w-4xl mx-auto">
             <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-white to-[#FF6B47] bg-clip-text text-transparent">
               Ready to Build Something Amazing Together?
             </h3>
@@ -293,7 +291,8 @@ const ProjectsSection = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
                 onClick={handleScheduleMeeting}
-                className="flex items-center justify-center space-x-2 px-8 py-4 bg-gradient-to-r from-[#FF6B47] to-[#FF4500] text-white rounded-2xl font-semibold transition-all duration-300 hover:scale-105 glow-orange hover:glow-orange-strong"
+                className="flex items-center justify-center space-x-2 px-8 py-4 bg-gradient-to-r from-[#FF6B47] to-[#FF4500] text-white rounded-2xl font-semibold transition-all duration-300 hover:scale-105"
+                style={{ boxShadow: '0 0 20px rgba(255, 107, 71, 0.3)' }}
               >
                 <Calendar className="w-5 h-5" />
                 <span>Schedule a Meeting</span>
@@ -323,6 +322,13 @@ const ProjectsSection = () => {
         .line-clamp-3 {
           display: -webkit-box;
           -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+        
+        .line-clamp-4 {
+          display: -webkit-box;
+          -webkit-line-clamp: 4;
           -webkit-box-orient: vertical;
           overflow: hidden;
         }

@@ -30,7 +30,9 @@ const HeroSection = () => {
   };
 
   const handleScheduleMeeting = () => {
-    window.open('https://calendar.google.com/calendar/appointments/schedules/AcZssZ1wI7-YpGVUpNnvnCPjZ7-qVB_uJuWvJhC5sDqXJzQm8f_7KhLkY6f1XdvnY8xnZ_Q', '_blank');
+    // Opens the Google Calendar appointment scheduling iframe in a new window
+    const schedulingUrl = 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ1yqo8o5Rx6xThID3r3a48rHlUceXcwnuxYB_jESVun_ben95EXcHRTxiTJKR_wKsjPAwAE4_2i?gv=true';
+    window.open(schedulingUrl, '_blank', 'width=800,height=700,scrollbars=yes,resizable=yes');
   };
 
   return (

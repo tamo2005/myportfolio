@@ -58,6 +58,22 @@ const SkillsSection = () => {
       message: "Tailwind makes me feel like a styling tornado! Utility-first CSS is pure magic!"
     },
     { 
+      name: 'Node.js', 
+      level: 75, 
+      category: 'Backend',
+      color: 'from-[#4CAF50] to-[#45A049]',
+      icon: '🟢',
+      message: "Node.js powers my backend dreams! Server-side JavaScript is absolutely amazing!"
+    },
+    { 
+      name: 'Express.js', 
+      level: 70, 
+      category: 'Backend',
+      color: 'from-[#68B984] to-[#5AA469]',
+      icon: '🚀',
+      message: "Express.js makes backend development smooth as silk! API creation has never been easier!"
+    },
+    { 
       name: 'Pandas', 
       level: 70, 
       category: 'AI/ML',
@@ -108,7 +124,7 @@ const SkillsSection = () => {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-gradient-to-r from-[#FFB347]/5 to-[#FF7F50]/3 rounded-full blur-3xl animate-pulse delay-2000"></div>
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10 max-w-6xl">
         {/* Header */}
         <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-black bg-gradient-to-r from-white via-[#FF6B47] to-white bg-clip-text text-transparent mb-6"
@@ -122,15 +138,15 @@ const SkillsSection = () => {
 
         {/* Category Filter - One UI 7 style */}
         <div className={`flex justify-center mb-12 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="flex flex-wrap justify-center gap-3 backdrop-blur-one-ui p-2 rounded-3xl border border-[#333]/30">
+          <div className="flex flex-wrap justify-center gap-2 backdrop-blur-md bg-[#1A1A1A]/40 p-2 rounded-2xl border border-[#333]/30">
             {categories.map((category, index) => (
               <button
                 key={category}
                 onClick={() => setActiveCategory(category)}
-                className={`px-6 py-3 rounded-2xl font-semibold transition-all duration-300 ${
+                className={`px-4 py-2 text-sm rounded-xl font-semibold transition-all duration-300 ${
                   activeCategory === category
-                    ? 'bg-gradient-to-r from-[#FF6B47] to-[#FF4500] text-white glow-orange'
-                    : 'text-gray-400 hover:text-white hover:bg-[#1A1A1A]/50'
+                    ? 'bg-gradient-to-r from-[#FF6B47] to-[#FF4500] text-white shadow-lg shadow-[#FF6B47]/25'
+                    : 'text-gray-400 hover:text-white hover:bg-[#2A2A2A]/60'
                 }`}
                 style={{ animationDelay: `${index * 100}ms` }}
               >
@@ -140,14 +156,14 @@ const SkillsSection = () => {
           </div>
         </div>
 
-        {/* Skills Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
+        {/* Skills Grid - More compact layout */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6 mb-12 max-w-5xl mx-auto">
           {filteredSkills.map((skill, index) => (
             <div
               key={skill.name}
-              className={`group relative backdrop-blur-one-ui rounded-3xl p-6 border border-[#333]/30 hover:border-[#FF6B47]/40 transition-all duration-500 hover:scale-105 cursor-pointer transform ${
+              className={`group relative backdrop-blur-md bg-[#1A1A1A]/40 rounded-2xl p-5 border border-[#333]/30 hover:border-[#FF6B47]/40 transition-all duration-500 hover:scale-105 cursor-pointer transform ${
                 animatedSkills.includes(index) ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'
-              } ${selectedSkill === index ? 'glow-orange-strong scale-110' : 'hover:glow-orange'}`}
+              } ${selectedSkill === index ? 'shadow-2xl shadow-[#FF6B47]/30 scale-105' : 'hover:shadow-lg hover:shadow-[#FF6B47]/20'}`}
               style={{ 
                 transitionDelay: `${index * 150}ms`,
                 backgroundImage: selectedSkill === index ? 
@@ -155,31 +171,29 @@ const SkillsSection = () => {
               }}
               onClick={() => handleSkillClick(skill, index)}
             >
-              {/* Skill Header */}
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center space-x-4">
-                  <div className={`p-3 rounded-2xl bg-gradient-to-r ${skill.color} shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                    <span className="text-2xl">{skill.icon}</span>
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-white group-hover:text-[#FF6B47] transition-colors duration-300">
-                      {skill.name}
-                    </h3>
-                    <p className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
-                      {skill.category}
-                    </p>
-                  </div>
+              {/* Skill Header - More compact */}
+              <div className="flex items-center space-x-3 mb-4">
+                <div className={`p-2.5 rounded-xl bg-gradient-to-r ${skill.color} shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                  <span className="text-lg">{skill.icon}</span>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-lg font-bold text-white group-hover:text-[#FF6B47] transition-colors duration-300 truncate">
+                    {skill.name}
+                  </h3>
+                  <p className="text-xs text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
+                    {skill.category}
+                  </p>
                 </div>
                 <div className="text-right">
-                  <div className="text-2xl font-bold text-[#FF6B47] group-hover:text-white transition-colors duration-300">
+                  <div className="text-xl font-bold text-[#FF6B47] group-hover:text-white transition-colors duration-300">
                     {skill.level}%
                   </div>
                 </div>
               </div>
 
-              {/* Progress Bar - One UI 7 style */}
+              {/* Progress Bar - One UI 7 style - More compact */}
               <div className="relative">
-                <div className="w-full h-3 bg-[#1A1A1A] rounded-full overflow-hidden">
+                <div className="w-full h-2.5 bg-[#2A2A2A] rounded-full overflow-hidden">
                   <div 
                     className={`h-full bg-gradient-to-r ${skill.color} rounded-full transition-all duration-1000 ease-out relative`}
                     style={{ 
@@ -192,18 +206,18 @@ const SkillsSection = () => {
                   </div>
                 </div>
                 
-                {/* Skill level indicator */}
+                {/* Skill level indicator - smaller */}
                 <div 
-                  className="absolute top-0 w-3 h-3 bg-white rounded-full border-2 border-[#FF6B47] transition-all duration-1000 ease-out glow-orange"
+                  className="absolute top-0 w-2.5 h-2.5 bg-white rounded-full border-2 border-[#FF6B47] transition-all duration-1000 ease-out shadow-sm shadow-[#FF6B47]/50"
                   style={{ 
-                    left: animatedSkills.includes(index) ? `calc(${skill.level}% - 6px)` : '-6px',
+                    left: animatedSkills.includes(index) ? `calc(${skill.level}% - 5px)` : '-5px',
                     transitionDelay: `${index * 200 + 800}ms`
                   }}
                 />
               </div>
 
               {/* Hover effect overlay */}
-              <div className={`absolute inset-0 rounded-3xl bg-gradient-to-r ${skill.color}/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
+              <div className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${skill.color}/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
             </div>
           ))}
         </div>
@@ -211,7 +225,7 @@ const SkillsSection = () => {
         {/* Fun Message Display - One UI 7 style */}
         {showMessage && (
           <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 animate-fade-in">
-            <div className="backdrop-blur-one-ui p-6 rounded-3xl border border-[#FF6B47]/30 max-w-md mx-auto text-center glow-orange-strong">
+            <div className="backdrop-blur-md bg-[#1A1A1A]/60 p-6 rounded-2xl border border-[#FF6B47]/30 max-w-md mx-auto text-center shadow-2xl shadow-[#FF6B47]/30">
               <div className="text-4xl mb-4 animate-bounce">
                 {skills.find((_, i) => i === selectedSkill)?.icon}
               </div>
@@ -222,21 +236,21 @@ const SkillsSection = () => {
           </div>
         )}
 
-        {/* Skills Summary - One UI 7 style */}
-        <div className={`grid grid-cols-2 md:grid-cols-4 gap-6 transition-all duration-1000 delay-800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        {/* Skills Summary - One UI 7 style - More compact */}
+        <div className={`grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto transition-all duration-1000 delay-800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           {[
-            { number: '8+', label: 'Technologies', icon: '🛠️' },
+            { number: '10+', label: 'Technologies', icon: '🛠️' },
             { number: '3+', label: 'Years Learning', icon: '📚' },
             { number: '15+', label: 'Projects', icon: '🚀' },
             { number: '∞', label: 'Passion Level', icon: '❤️' }
           ].map((stat, index) => (
             <div 
               key={stat.label}
-              className="text-center backdrop-blur-one-ui p-6 rounded-3xl border border-[#333]/30 hover:border-[#FF6B47]/30 transition-all duration-300 hover:scale-105 hover:glow-orange"
+              className="text-center backdrop-blur-md bg-[#1A1A1A]/40 p-5 rounded-2xl border border-[#333]/30 hover:border-[#FF6B47]/30 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#FF6B47]/20"
             >
-              <div className="text-3xl mb-2">{stat.icon}</div>
-              <div className="text-3xl font-bold text-[#FF6B47] mb-2">{stat.number}</div>
-              <div className="text-gray-400 font-medium">{stat.label}</div>
+              <div className="text-2xl mb-2">{stat.icon}</div>
+              <div className="text-2xl font-bold text-[#FF6B47] mb-1">{stat.number}</div>
+              <div className="text-gray-400 font-medium text-sm">{stat.label}</div>
             </div>
           ))}
         </div>
@@ -269,6 +283,11 @@ const SkillsSection = () => {
         
         .animate-shimmer {
           animation: shimmer 2s infinite;
+        }
+        
+        .backdrop-blur-one-ui {
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
         }
       `}</style>
     </section>
