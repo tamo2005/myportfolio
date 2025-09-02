@@ -34,6 +34,12 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleScheduleMeeting = () => {
+    // Opens the Google Calendar appointment scheduling iframe in a new window
+    const schedulingUrl = 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ1yqo8o5Rx6xThID3r3a48rHlUceXcwnuxYB_jESVun_ben95EXcHRTxiTJKR_wKsjPAwAE4_2i?gv=true';
+    window.open(schedulingUrl, '_blank', 'width=800,height=700,scrollbars=yes,resizable=yes');
+  };
+
   const navItems = [
     { id: 'home', label: 'Home', icon: Home, targetId: 'hero' }, // Target hero section for home
     { id: 'about', label: 'About', icon: User, targetId: 'about' },
@@ -119,7 +125,7 @@ const Header = () => {
               
               {/* Schedule Meeting Button - Now shows on small screens too */}
               <button
-                onClick={() => window.open('https://calendar.google.com/calendar/appointments/schedules/AcZssZ1wI7-YpGVUpNnvnCPjZ7-qVB_uJuWvJhC5sDqXJzQm8f_7KhLkY6f1XdvnY8xnZ_Q', '_blank')}
+                onClick={handleScheduleMeeting}
                 className="hidden sm:flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-[#FF6B47] to-[#FF4500] text-white rounded-2xl font-medium transition-all duration-300 hover:scale-105"
                 style={{ boxShadow: '0 0 20px rgba(255, 107, 71, 0.3)' }}
               >
@@ -179,7 +185,7 @@ const Header = () => {
               {/* Schedule Meeting Button - Mobile */}
               <button
                 onClick={() => {
-                  window.open('https://calendar.google.com/calendar/appointments/schedules/AcZssZ1wI7-YpGVUpNnvnCPjZ7-qVB_uJuWvJhC5sDqXJzQm8f_7KhLkY6f1XdvnY8xnZ_Q', '_blank');
+                  handleScheduleMeeting();
                   setIsMobileMenuOpen(false);
                 }}
                 className="w-full flex items-center space-x-3 px-4 py-3 bg-gradient-to-r from-[#FF6B47] to-[#FF4500] text-white rounded-2xl font-medium transition-all duration-300 hover:scale-105"
