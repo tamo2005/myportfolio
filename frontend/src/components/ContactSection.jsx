@@ -17,32 +17,11 @@ const ContactSection = () => {
   const sceneRef = useRef(null);
   const meshesRef = useRef([]);
 
-  // EmailJS Configuration
-  const EMAILJS_SERVICE_ID = 'service_v5sbc2o';
-  const EMAILJS_TEMPLATE_ID = 'template_axh5k2k';
-  const EMAILJS_PUBLIC_KEY = 'xJbHpN50t8_eFAeAG';
-
+  // Backend API Configuration
+  const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+  
   // Google Calendar booking link
   const CALENDAR_BOOKING_LINK = 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ1wI7-YpGVUpNnvnCPjZ7-qVB_uJuWvJhC5sDqXJzQm8f_7KhLkY6f1XdvnY8xnZ_Q';
-
-  // Load EmailJS script
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js';
-    script.async = true;
-    script.onload = () => {
-      if (window.emailjs) {
-        window.emailjs.init(EMAILJS_PUBLIC_KEY);
-      }
-    };
-    document.head.appendChild(script);
-
-    return () => {
-      if (script.parentNode) {
-        script.parentNode.removeChild(script);
-      }
-    };
-  }, []);
 
   // Mouse tracking for interactive effects
   useEffect(() => {
@@ -236,6 +215,7 @@ const ContactSection = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
+    // Validation checks
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
       setSubmitStatus('error');
       setSubmitMessage('Please fill in all fields.');
@@ -243,6 +223,7 @@ const ContactSection = () => {
       return;
     }
 
+    // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
       setSubmitStatus('error');
@@ -256,45 +237,40 @@ const ContactSection = () => {
     setSubmitMessage('');
 
     try {
-      if (!window.emailjs) {
-        throw new Error('EmailJS is not loaded. Please try again.');
+      // Send message to backend API
+      const response = await fetch(`${API_BASE_URL}/messages`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          message: formData.message.trim(),
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        // Handle backend error responses
+        throw new Error(data.message || `Error: ${response.status}`);
       }
 
-      const formattedMessage = `
-From: ${formData.name}
-Email: ${formData.email}
-
-Message:
-${formData.message}
-
----
-This message was sent from your portfolio contact form.
-      `.trim();
-
-      const result = await window.emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        {
-          from_name: formData.name,
-          from_email: formData.email,
-          message: formattedMessage,
-          to_name: 'Tamagno Roy',
-          reply_to: formData.email,
-          subject: `Portfolio Contact: Message from ${formData.name}`,
-        }
-      );
-
-      if (result.status === 200) {
-        setSubmitStatus('success');
-        setSubmitMessage('Your message has been sent successfully! I\'ll get back to you within 24 hours.');
-        setFormData({ name: '', email: '', message: '' });
-      } else {
-        throw new Error('Failed to send message');
-      }
+      // Success!
+      setSubmitStatus('success');
+      setSubmitMessage('Your message has been sent successfully! I\'ll get back to you within 24 hours.');
+      setFormData({ name: '', email: '', message: '' });
     } catch (error) {
-      console.error('EmailJS Error:', error);
+      console.error('Message submission error:', error);
       setSubmitStatus('error');
-      setSubmitMessage('Sorry, there was an error sending your message. Please try again or contact me directly via email.');
+      
+      // Check if it's a rate limit error
+      if (error.message.includes('too many') || error.message.includes('rate')) {
+        setSubmitMessage('You\'ve sent too many messages recently. Please try again later.');
+      } else {
+        setSubmitMessage('Sorry, there was an error sending your message. Please try again or contact me directly via email.');
+      }
     } finally {
       setIsSubmitting(false);
       setTimeout(() => setSubmitStatus(''), 8000);
