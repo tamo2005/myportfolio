@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { GraduationCap, Trophy, Code, Zap, Calendar } from 'lucide-react';
 import * as THREE from 'three';
+import { openCalendar } from '../utils/constants.js';
 
 const AboutSection = () => {
   const mountRef = useRef(null);
@@ -248,91 +249,82 @@ const AboutSection = () => {
   }, [handleMouseMove]);
 
   const badges = [
-    { 
-      icon: GraduationCap, 
-      text: "Open for any opportunities", 
-      color: "from-[#FF6B47] to-[#FF4500]",
-      description: "Always ready to learn and grow"
+    {
+      icon: GraduationCap,
+      text: 'NPTEL Research Intern — IIT Ropar · Prof. Sudarshan Iyengar',
+      color: 'from-[#FF6B47] to-[#FF4500]',
+      description: 'Summer Internship 2026 · MERN Stack & AI · 8 weeks virtual'
     },
-    { 
-      icon: Trophy, 
-      text: "FAV SONG - Maula Mere Maula by Roop Kumar Rathod", 
-      color: "from-[#FF8C42] to-[#FF6347]",
-      description: "Music that inspires my coding sessions"
+    {
+      icon: Trophy,
+      text: '5× NPTEL Elite — IIT Madras · IIT Kanpur · IIT Kharagpur',
+      color: 'from-[#FF8C42] to-[#FF6347]',
+      description: 'Discipline Stars recipient across CS, AI, and algorithms courses'
     },
-    { 
-      icon: Code, 
-      text: "AI/ML Enthusiast", 
-      color: "from-[#FF6B47] to-[#FF4500]",
-      description: "Passionate about artificial intelligence"
+    {
+      icon: Code,
+      text: 'Building Yaksha — AI FAQ Engine for Students',
+      color: 'from-[#FF6B47] to-[#FF4500]',
+      description: 'NLP-powered chat system for course Q&A · IIT Ropar project'
     },
-    { 
-      icon: Zap, 
-      text: "Quick Learner & Team Player", 
-      color: "from-[#FFB347] to-[#FF7F50]",
-      description: "Adaptable and collaborative mindset"
+    {
+      icon: Zap,
+      text: 'Open to Research Collaborations',
+      color: 'from-[#FFB347] to-[#FF7F50]',
+      description: 'Interested in AI engineering, Linear Algebra, and systems research'
     }
   ];
 
-  const handleScheduleMeeting = () => {
-    window.open('https://calendar.google.com/calendar/appointments/schedules/AcZssZ1wI7-YpGVUpNnvnCPjZ7-qVB_uJuWvJhC5sDqXJzQm8f_7KhLkY6f1XdvnY8xnZ_Q', '_blank');
-  };
+
 
   return (
     <section 
       id="about" 
-      className="relative pt-24 pb-20 bg-[#0A0A0A] text-white overflow-hidden"
+      className="relative py-24 overflow-hidden"
+      style={{ background: 'var(--bg)' }}
     >
       {/* Three.js Canvas */}
       <div 
         ref={mountRef} 
-        className="absolute inset-0 pointer-events-none opacity-60"
+        className="absolute inset-0 pointer-events-none opacity-30"
         style={{ zIndex: 1 }}
       />
 
-      {/* One UI 7 animated background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 left-4 sm:left-10 w-20 sm:w-24 h-20 sm:h-24 bg-gradient-to-r from-[#FF6B47]/20 to-[#FF4500]/10 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-4 sm:right-10 w-32 sm:w-40 h-32 sm:h-40 bg-gradient-to-r from-[#FF8C42]/15 to-[#FF6347]/8 rounded-full blur-2xl animate-bounce"></div>
-        <div className="absolute top-1/2 left-1/4 w-16 sm:w-20 h-16 sm:h-20 bg-gradient-to-r from-[#FFB347]/25 to-[#FF7F50]/12 rounded-full blur-xl animate-ping"></div>
-        
-        {/* One UI 7 style accent elements */}
-        <div className="absolute top-10 right-1/3 w-6 h-6 bg-[#FF6B47] rounded-full opacity-60 animate-pulse glow-orange"></div>
-        <div className="absolute bottom-32 left-1/5 w-8 h-8 bg-[#FF8C42] rounded-full opacity-40 animate-bounce glow-orange"></div>
+      {/* Subtle ambient orbs — no neon, no animation */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+        <div className="absolute top-1/4 left-0 w-72 h-72 rounded-full blur-3xl"
+          style={{ background: 'radial-gradient(circle, rgba(232,103,58,0.05) 0%, transparent 70%)' }} />
+        <div className="absolute bottom-1/4 right-0 w-64 h-64 rounded-full blur-3xl"
+          style={{ background: 'radial-gradient(circle, rgba(232,103,58,0.04) 0%, transparent 70%)' }} />
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 relative z-10">
-        <div className={`transform transition-all duration-1000 ease-out ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-black bg-gradient-to-r from-white via-[#FF6B47] to-white bg-clip-text text-transparent mb-8 sm:mb-12 text-center transition-all duration-700 hover:scale-105"
-              style={{ textShadow: '0 0 30px rgba(255, 107, 71, 0.3)' }}>
-            About Me
+      <div className="section-container relative z-10">
+        <div className={`transform transition-all duration-700 ease-out ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
+          <p className="section-label text-center">Who I Am</p>
+          <h2 className="section-heading text-center mb-12">
+            About Me<span className="dot-accent">.</span>
           </h2>
           
           <div className="max-w-5xl mx-auto">
-            <div className="backdrop-blur-one-ui rounded-3xl p-6 sm:p-8 md:p-10 mb-8 sm:mb-12 border border-[#333]/30 hover:border-[#FF6B47]/30 transition-all duration-500 hover:scale-[1.02] glow-orange">
-              <div className="space-y-6 sm:space-y-8 text-base sm:text-lg text-gray-300 leading-relaxed font-light">
-                <p className="transform transition-all duration-700 delay-200 hover:text-white hover:translate-x-2">
-                  So... I am a 3rd-year Computer Science student at <strong className="text-[#FF6B47] font-semibold hover:text-[#FF4500] transition-colors duration-300">RCC IIT</strong>, Kolkata, with a passion for AI/ML and full-stack development. I have a strong foundation in Python, JavaScript, and React.js, and I am always eager to learn new technologies and improve my skills.
+            <div className="card card-accent rounded-3xl p-6 sm:p-8 md:p-10 mb-8 sm:mb-12">
+              <div className="space-y-5 text-base sm:text-lg leading-relaxed" style={{ color: 'var(--txt-2)' }}>
+                <p className="transform transition-all duration-700 delay-200 hover:text-white hover:translate-x-1">
+                  I am a 3rd-year Computer Science student at <strong className="text-[#FF6B47] font-semibold">RCC Institute of Information Technology</strong>, Kolkata. I am currently an <strong className="text-[#FF6B47] font-semibold">NPTEL Summer Research Intern at IIT Ropar</strong>, mentored directly by <strong className="text-[#FF6B47] font-semibold">Prof. Sudarshan Iyengar</strong> — working on MERN stack engineering, AI systems, and mathematical foundations including Linear Algebra.
                 </p>
                 
-                <p className="transform transition-all duration-700 delay-400 hover:text-white hover:translate-x-2">
-                  I have worked on various projects, including an AI-powered marks evaluation system called <strong className="text-[#FF6B47] font-semibold hover:text-[#FF4500] transition-colors duration-300">Gradify.AI</strong>, and I have interned as a Frontend Developer at <strong className="text-[#FF6B47] font-semibold hover:text-[#FF4500] transition-colors duration-300">JAWD Lifestyles</strong>. I am also actively involved in competitive programming and have done many other projects while working in a team.
+                <p className="transform transition-all duration-700 delay-400 hover:text-white hover:translate-x-1">
+                  At IIT Ropar I am building <strong className="text-[#FF6B47] font-semibold">Yaksha</strong> — an intelligent FAQ chat engine that lets students query course content and get instant, context-aware answers. Beyond that I have built an <strong className="text-[#FF6B47] font-semibold">AI website generator</strong> with a 10-module pipeline (FastAPI + Next.js), and led an <strong className="text-[#FF6B47] font-semibold">email marketing platform</strong> at JAWD Lifestyles.
                 </p>
                 
-                <p className="transform transition-all duration-700 delay-600 hover:text-white hover:translate-x-2">
-                  And now the real me, I am too much eager to work under some good guidance and I am genuinely seeking for it. If you can help me with that, please do reach out to me. I am always open to new opportunities and challenges that can help me grow as a developer and as a person. I am particularly interested in Academic Research, AI/ML, and Full Stack Development.
-                </p>
-                
-                <p className="transform transition-all duration-700 delay-800 hover:text-white hover:translate-x-2">
-                  I am also a quick learner and a team player, and I believe that collaboration is key to success in any project. I am excited to connect with like-minded individuals and contribute to meaningful projects that make a difference.
+                <p className="transform transition-all duration-700 delay-600 hover:text-white hover:translate-x-1">
+                  I have completed <strong className="text-[#FF6B47] font-semibold">5 NPTEL courses with Elite grade</strong> from IIT Madras, IIT Kanpur, and IIT Kharagpur — covering Algorithms, IoT, Data Structures, and Programming — and received the <strong className="text-[#FF6B47] font-semibold">NPTEL Discipline Stars</strong> recognition. I am drawn to problems at the intersection of AI, systems design, and applied mathematics.
                 </p>
               </div>
 
-              {/* Schedule Meeting CTA inside about card */}
-              <div className="mt-8 pt-6 border-t border-[#333]/30">
+              <div className="mt-8 pt-6" style={{ borderTop: '1px solid var(--border)' }}>
                 <button
-                  onClick={handleScheduleMeeting}
-                  className="w-full sm:w-auto mx-auto flex items-center justify-center space-x-3 px-6 py-3 bg-gradient-to-r from-[#FF6B47] to-[#FF4500] rounded-2xl font-semibold transition-all duration-300 hover:scale-105 glow-orange hover:glow-orange-strong text-white"
+                  onClick={openCalendar}
+                  className="btn-primary"
                 >
                   <Calendar className="w-5 h-5" />
                   <span>Let's Schedule a Meeting!</span>

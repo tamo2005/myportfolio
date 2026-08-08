@@ -1,70 +1,42 @@
-import React, { useState, useEffect } from 'react';
-import { ExternalLink, Github, Code, Heart, Mail, Clock, Play, Pause, Star, GitBranch, Users, Calendar, Construction } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { ExternalLink, Github, Star, Calendar, Construction } from 'lucide-react';
+import { projects } from '../data/projects.js';
+import { openCalendar } from '../utils/constants.js';
+
+/** Map project icons from data — data file stores strings, component renders JSX */
+const iconForCategory = (category) => {
+  const map = {
+    'AI/ML':      <Star className="w-6 h-6" />,
+    'Full-Stack':  <Github className="w-6 h-6" />,
+  };
+  return map[category] || <Star className="w-6 h-6" />;
+};
 
 const ProjectsSection = () => {
   const [hoveredProject, setHoveredProject] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const sectionRef = useRef(null);
 
-  const projects = [
-    {
-      title: 'Gradify.AI',
-      description: 'AI-powered marks evaluation system that revolutionizes how teachers grade assignments with intelligent automation and detailed analytics.',
-      longDescription: 'A comprehensive AI solution that uses machine learning to automatically evaluate student assignments, providing detailed feedback and analytics to help teachers streamline their grading process.',
-      tech: ['React', 'Python', 'TensorFlow', 'OpenAI API', 'MongoDB'],
-      role: 'Full-stack Developer & AI Engineer',
-      status: 'In Development',
-      icon: <Star className="w-6 h-6" />,
-      gradient: 'from-[#FF6B47] to-[#FF4500]',
-      demo: null,
-      github: null, // Work in progress
-      features: ['AI-powered grading', 'Real-time analytics', 'Student feedback system', 'Progress tracking'],
-      metrics: { accuracy: '95%', speed: '10x faster', satisfaction: '98%' }
-    },
-    {
-      title: 'Jawd Email Campaign',
-      description: 'Sophisticated email marketing platform with advanced campaign management, automation, and detailed analytics for modern businesses.',
-      longDescription: 'A comprehensive email marketing solution built with JavaScript, featuring drag-and-drop campaign builder, automated workflows, and real-time performance tracking.',
-      tech: ['JavaScript', 'Node.js', 'MongoDB', 'HTML/CSS', 'Email APIs'],
-      role: 'Full-stack Developer',
-      status: 'Live',
-      icon: <Mail className="w-6 h-6" />,
-      gradient: 'from-[#FF8C42] to-[#FF6347]',
-      demo: null,
-      github: 'https://github.com/tamo2005/Jawd-email-campaign',
-      features: ['Drag-and-drop builder', 'Automated workflows', 'A/B testing', 'Real-time analytics'],
-      metrics: { delivery: '99.9%', open: '35%', conversion: '12%' }
-    },
-    {
-      title: 'Deadline Death Predictor',
-      description: 'Machine learning application that predicts mortality risk using advanced algorithms and comprehensive health data analysis.',
-      longDescription: 'An innovative ML project that analyzes various health indicators and demographic data to predict mortality risk, helping healthcare professionals make informed decisions.',
-      tech: ['JavaScript', 'Machine Learning', 'TensorFlow.js', 'Chart.js', 'Health APIs'],
-      role: 'ML Engineer & Frontend Developer',
-      status: 'Live',
-      icon: <Clock className="w-6 h-6" />,
-      gradient: 'from-[#FFB347] to-[#FF7F50]',
-      demo: 'https://deadline-death-predictor.vercel.app/',
-      github: 'https://deadline-death-predictor.vercel.app/', // Using demo link as main link
-      features: ['ML prediction model', 'Health data analysis', 'Risk visualization', 'Interactive dashboard'],
-      metrics: { accuracy: '87%', precision: '82%', recall: '89%' }
-    },
-    {
-      title: 'Heart Disease Detection',
-      description: 'Advanced machine learning system for early detection of heart disease using clinical data and predictive modeling.',
-      longDescription: 'A sophisticated healthcare application that uses machine learning algorithms to analyze patient data and predict the likelihood of heart disease, enabling early intervention.',
-      tech: ['Python', 'Scikit-learn', 'Pandas', 'NumPy', 'Matplotlib', 'Flask'],
-      role: 'Data Scientist & Backend Developer',
-      status: 'Completed',
-      icon: <Heart className="w-6 h-6" />,
-      gradient: 'from-[#FF6B47] to-[#FF4500]',
-      demo: null,
-      github: 'https://github.com/tamo2005/heart-diesease-detection',
-      features: ['Clinical data analysis', 'Predictive modeling', 'Risk assessment', 'Medical visualization'],
-      metrics: { accuracy: '92%', sensitivity: '88%', specificity: '94%' }
-    }
-  ];
+  // Enrich projects with icon JSX (data file keeps icons as strings)
+  const enrichedProjects = projects.map((p) => ({
+    ...p,
+    icon: iconForCategory(p.category),
+    tech: p.techStack || p.tech || [],
+  }));
+
+
+
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setIsVisible(true); },
+      { threshold: 0.1 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 200);
@@ -81,22 +53,18 @@ const ProjectsSection = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % projects.length);
+      setCurrentSlide((prev) => (prev + 1) % enrichedProjects.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, [projects.length]);
+  }, [enrichedProjects.length]);
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 'Live': return 'bg-green-500';
+      case 'Live':          return 'bg-green-500';
       case 'In Development': return 'bg-blue-500';
-      case 'Completed': return 'bg-purple-500';
-      default: return 'bg-gray-500';
+      case 'Completed':     return 'bg-purple-500';
+      default:              return 'bg-gray-500';
     }
-  };
-
-  const handleScheduleMeeting = () => {
-    window.open('https://calendar.google.com/calendar/appointments/schedules/AcZssZ1wI7-YpGVUpNnvnCPjZ7-qVB_uJuWvJhC5sDqXJzQm8f_7KhLkY6f1XdvnY8xnZ_Q', '_blank');
   };
 
   const ProjectCard = ({ project, index, isActive }) => (
@@ -268,9 +236,9 @@ const ProjectsSection = () => {
 
         {/* Projects Grid - Simple and clean side-by-side layout */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16">
-          {projects.map((project, index) => (
+          {enrichedProjects.map((project, index) => (
             <ProjectCard
-              key={project.title}
+              key={project.id || project.title}
               project={project}
               index={index}
               isActive={currentSlide === index}
@@ -290,7 +258,7 @@ const ProjectsSection = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
-                onClick={handleScheduleMeeting}
+                onClick={openCalendar}
                 className="flex items-center justify-center space-x-2 px-8 py-4 bg-gradient-to-r from-[#FF6B47] to-[#FF4500] text-white rounded-2xl font-semibold transition-all duration-300 hover:scale-105"
                 style={{ boxShadow: '0 0 20px rgba(255, 107, 71, 0.3)' }}
               >
@@ -311,50 +279,7 @@ const ProjectsSection = () => {
         </div>
       </div>
 
-      <style jsx>{`
-        .line-clamp-1 {
-          display: -webkit-box;
-          -webkit-line-clamp: 1;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-        
-        .line-clamp-3 {
-          display: -webkit-box;
-          -webkit-line-clamp: 3;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-        
-        .line-clamp-4 {
-          display: -webkit-box;
-          -webkit-line-clamp: 4;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-        
-        .line-clamp-none {
-          display: block;
-          -webkit-line-clamp: none;
-          -webkit-box-orient: unset;
-          overflow: visible;
-        }
-
-        @keyframes fade-in {
-          from {
-            opacity: 0;
-            transform: translateY(10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        
-        .animate-fade-in {
-          animation: fade-in 0.3s ease-out;
-        }
-      `}</style>
+      {/* CSS for line-clamp and animations lives in src/index.css */}
     </section>
   );
 };

@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Briefcase, Award, ExternalLink, Calendar, Building, CheckCircle, Star, Eye, X } from 'lucide-react';
+import { allCertificates } from '../data/certificates.js';
+import { experiences } from '../data/experience.js';
+import { openCalendar } from '../utils/constants.js';
 
 const ExperienceSection = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -24,121 +27,16 @@ const ExperienceSection = () => {
     return () => observer.disconnect();
   }, []);
 
-  const experiences = [
-    {
-      title: 'Frontend Developer',
-      company: 'JAWD Lifestyles',
-      type: 'Internship',
-      duration: '2024',
-      description: 'Built responsive web interfaces and worked on UI/UX components using modern frontend technologies',
-      technologies: ['React', 'JavaScript', 'CSS3', 'HTML5'],
-      achievements: [
-        'Developed responsive web components',
-        'Improved user interface design',
-        'Collaborated with design team'
-      ]
-    },
-  ];
+  // experiences and allCertificates imported from data files above
 
-  const certifications = [
-    {
-      title: 'Introduction To Internet Of Things',
-      issuer: 'IIT Kharagpur (NPTEL)',
-      date: 'Nov 2025',
-      verifyLink: 'https://internalapp.nptel.ac.in/noc/Ecertificate/?q=NPTEL25CS44S44950216804365773',
-      image: '/assets/IOT.png',
-      category: 'IoT',
-      grade: 'Elite'
-    },
-    {
-      title: 'Design and Analysis of Algorithms',
-      issuer: 'IIT Madras (NPTEL)',
-      date: 'Apr 2025',
-      verifyLink: 'https://internalapp.nptel.ac.in/noc/Ecertificate/?q=NPTEL25CS23S35010076901335591',
-      image: '/assets/DAA.png',
-      category: 'Algorithms',
-      grade: 'Elite'
-    },
-    {
-      title: 'The Joy of Computing using Python',
-      issuer: 'IIT Madras (NPTEL)',
-      date: 'Apr 2024',
-      verifyLink: 'https://nptel.ac.in/noc/E_Certificate/NPTEL24CS113S85230103104184540',
-      image: '/assets/JOCP.png',
-      category: 'Programming',
-      grade: 'Elite'
-    },
-    {
-      title: 'Programming, Data Structures and Algorithms using Python',
-      issuer: 'IIT Madras (NPTEL)',
-      date: 'Apr 2024',
-      verifyLink: 'https://nptel.ac.in/noc/E_Certificate/NPTEL24CS78S43920060602714322',
-      image: '/assets/PROGDSAPY.png',
-      category: 'Programming',
-      grade: 'Elite'
-    },
-    {
-      title: 'Introduction to Programming in C',
-      issuer: 'IIT Kanpur (NPTEL)',
-      date: 'Apr 2024',
-      verifyLink: 'https://nptel.ac.in/noc/E_Certificate/NPTEL24CS02S46020050730126767',
-      image: '/assets/CPROG.png',
-      category: 'Programming',
-      grade: 'Elite'
-    },
-    {
-      title: 'Generative AI Certificate',
-      issuer: 'Intel (Tamagno Roy)',
-      date: '2024',
-      verifyLink: '#',
-      image: '/assets/Tamagno Roy_Generative_AI_Certificate.png',
-      category: 'AI/ML',
-      grade: 'Completed'
-    },
-    {
-      title: 'Micro Learning Module Certificate',
-      issuer: 'Intel (Tamagno Roy)',
-      date: '2024',
-      verifyLink: '#',
-      image: '/assets/Tamagno Roy_Micro_Learning_Module_Certificate.png',
-      category: 'AI/ML',
-      grade: 'Completed'
-    },
-    {
-      title: 'Responsible AI Certificate',
-      issuer: 'Intel (Tamagno Roy)',
-      date: '2024',
-      verifyLink: '#',
-      image: '/assets/TAMAGNO ROY_Responsible_AI_Certificate.png',
-      category: 'AI/ML',
-      grade: 'Completed'
-    },
-    {
-      title: 'Space AI Certificate',
-      issuer: 'Intel (Tamagno Roy)',
-      date: '2024',
-      verifyLink: '#',
-      image: '/assets/Tamagno Roy_Space_AI_Certificate.png',
-      category: 'AI/ML',
-      grade: 'Completed'
-    },
-    {
-      title: 'Sport AI Certificate',
-      issuer: 'Intel (Tamagno Roy)',
-      date: '2024',
-      verifyLink: '#',
-      image: '/assets/Tamagno Roy_Sport_AI_Certificate.png',
-      category: 'AI/ML',
-      grade: 'Completed'
-    }
-  ];
+  // Certificate data imported from src/data/certificates.js
 
   const categories = ['All', 'Programming', 'Algorithms', 'IoT', 'AI/ML'];
   const [selectedCategory, setSelectedCategory] = useState('All');
 
-  const filteredCertifications = selectedCategory === 'All' 
-    ? certifications 
-    : certifications.filter(cert => cert.category === selectedCategory);
+  const filteredCertifications = selectedCategory === 'All'
+    ? allCertificates
+    : allCertificates.filter(cert => cert.category === selectedCategory);
 
   const openCertificate = (cert) => {
     setSelectedCertificate(cert);
@@ -151,22 +49,23 @@ const ExperienceSection = () => {
   };
 
   return (
-    <section id="experience" className="py-20 bg-[#0A0A0A] text-white relative overflow-hidden">
-      {/* One UI 7 background elements */}
-      <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-10 w-48 h-48 bg-gradient-to-r from-[#FF6B47]/8 to-[#FF4500]/4 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-10 w-56 h-56 bg-gradient-to-r from-[#FF8C42]/6 to-[#FF6347]/3 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-r from-[#FFB347]/4 to-[#FF7F50]/2 rounded-full blur-3xl animate-pulse delay-2000"></div>
+    <section id="experience" className="py-24 relative overflow-hidden" style={{ background: 'var(--bg-1)' }}>
+      {/* Subtle ambient — no animation, no neon */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div className="absolute top-1/4 left-0 w-96 h-96 rounded-full blur-3xl opacity-40"
+          style={{ background: 'radial-gradient(circle, rgba(232,103,58,0.05) 0%, transparent 70%)' }} />
+        <div className="absolute bottom-1/4 right-0 w-80 h-80 rounded-full blur-3xl opacity-40"
+          style={{ background: 'radial-gradient(circle, rgba(232,103,58,0.04) 0%, transparent 70%)' }} />
       </div>
 
-      <div className="container mx-auto px-6 sm:px-8 lg:px-12 relative z-10 max-w-7xl">
+      <div className="section-container relative z-10">
         {/* Header */}
-        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-black bg-gradient-to-r from-white via-[#FF6B47] to-white bg-clip-text text-transparent mb-6"
-              style={{ textShadow: '0 0 30px rgba(255, 107, 71, 0.3)' }}>
-            Experience & Certifications
+        <div className={`text-center mb-14 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <p className="section-label">Career & Credentials</p>
+          <h2 className="section-heading">
+            Experience &amp; Certifications<span className="dot-accent">.</span>
           </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto font-light">
+          <p className="mt-4 text-base max-w-2xl mx-auto" style={{ color: 'var(--txt-2)' }}>
             My professional journey and academic achievements in technology
           </p>
         </div>
@@ -228,7 +127,15 @@ const ExperienceSection = () => {
                           <h3 className="text-xl font-bold text-white group-hover:text-[#FF6B47] transition-colors duration-300">
                             {exp.title}
                           </h3>
-                          <p className="text-[#FF6B47] font-semibold">{exp.company}</p>
+                          <p className="text-[#FF6B47] font-semibold">{exp.organization || exp.company}</p>
+                          {exp.supervisor && (
+                            <p className="text-gray-400 text-sm mt-0.5">
+                              Mentored by <span className="text-gray-300 font-medium">{exp.supervisor}</span>
+                            </p>
+                          )}
+                          {exp.highlight && (
+                            <span className="text-xs text-green-400 font-medium">★ Currently Here</span>
+                          )}
                         </div>
                       </div>
                       <div className="text-left sm:text-right">
@@ -238,17 +145,30 @@ const ExperienceSection = () => {
                         </span>
                         <p className="text-gray-400 mt-2 flex items-center sm:justify-end text-sm">
                           <Calendar className="w-4 h-4 mr-1" />
-                          {exp.duration}
+                          {exp.startDate} {exp.endDate ? `— ${exp.endDate}` : exp.current ? '— Present' : ''}
+                          {exp.duration && !exp.startDate ? exp.duration : ''}
                         </p>
                       </div>
                     </div>
 
-                    <p className="text-gray-300 mb-4 leading-relaxed font-light">{exp.description}</p>
+                    {/* Description: handle both array and string formats */}
+                    {Array.isArray(exp.description) ? (
+                      <ul className="mb-4 space-y-1">
+                        {exp.description.map((d, di) => (
+                          <li key={di} className="flex items-start text-gray-300">
+                            <CheckCircle className="w-4 h-4 text-[#FF6B47] mr-2 flex-shrink-0 mt-0.5" />
+                            <span className="text-sm font-light">{d}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className="text-gray-300 mb-4 leading-relaxed font-light">{exp.description}</p>
+                    )}
 
                     <div className="mb-4">
                       <h4 className="text-sm font-semibold text-white mb-2">Technologies:</h4>
                       <div className="flex flex-wrap gap-2">
-                        {exp.technologies.map((tech, techIndex) => (
+                        {(exp.technologies || []).map((tech, techIndex) => (
                           <span
                             key={techIndex}
                             className="bg-[#1A1A1A]/60 text-[#FF6B47] px-3 py-1 rounded-lg text-sm font-medium border border-[#333]/50 hover:border-[#FF6B47]/50 transition-colors duration-200"
@@ -259,17 +179,20 @@ const ExperienceSection = () => {
                       </div>
                     </div>
 
-                    <div>
-                      <h4 className="text-sm font-semibold text-white mb-2">Achievements:</h4>
-                      <ul className="space-y-1">
-                        {exp.achievements.map((achievement, achIndex) => (
-                          <li key={achIndex} className="flex items-start text-gray-300">
-                            <CheckCircle className="w-4 h-4 text-[#FF6B47] mr-2 flex-shrink-0 mt-0.5" />
-                            <span className="text-sm font-light">{achievement}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                    {/* Achievements section only if data has it */}
+                    {exp.achievements && (
+                      <div>
+                        <h4 className="text-sm font-semibold text-white mb-2">Achievements:</h4>
+                        <ul className="space-y-1">
+                          {exp.achievements.map((achievement, achIndex) => (
+                            <li key={achIndex} className="flex items-start text-gray-300">
+                              <CheckCircle className="w-4 h-4 text-[#FF6B47] mr-2 flex-shrink-0 mt-0.5" />
+                              <span className="text-sm font-light">{achievement}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}

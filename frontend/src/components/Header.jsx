@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Github, Linkedin, Mail, Menu, X, Home, User, Code, Briefcase, MessageCircle, Coffee, Calendar } from 'lucide-react';
+import { openCalendar } from '../utils/constants.js';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -15,7 +16,7 @@ const Header = () => {
       setIsScrolled(window.scrollY > 50);
       
       // Update active section based on scroll position
-      const sections = ['home', 'hero', 'about', 'skills', 'projects', 'experience', 'contact'];
+      const sections = ['hero', 'about', 'skills', 'projects', 'experience', 'github', 'journal', 'contact'];
       const currentSection = sections.find(section => {
         const element = document.getElementById(section);
         if (element) {
@@ -34,19 +35,16 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleScheduleMeeting = () => {
-    // Opens the Google Calendar appointment scheduling iframe in a new window
-    const schedulingUrl = 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ1yqo8o5Rx6xThID3r3a48rHlUceXcwnuxYB_jESVun_ben95EXcHRTxiTJKR_wKsjPAwAE4_2i?gv=true';
-    window.open(schedulingUrl, '_blank', 'width=800,height=700,scrollbars=yes,resizable=yes');
-  };
 
   const navItems = [
-    { id: 'home', label: 'Home', icon: Home, targetId: 'hero' }, // Target hero section for home
-    { id: 'about', label: 'About', icon: User, targetId: 'about' },
-    { id: 'skills', label: 'Skills', icon: Code, targetId: 'skills' },
-    { id: 'projects', label: 'Projects', icon: Briefcase, targetId: 'projects' },
-    { id: 'experience', label: 'Experience', icon: Coffee, targetId: 'experience' },
-    { id: 'contact', label: 'Contact', icon: MessageCircle, targetId: 'contact' }
+    { id: 'home',       label: 'Home',       icon: Home,          targetId: 'hero' },
+    { id: 'about',      label: 'About',      icon: User,          targetId: 'about' },
+    { id: 'skills',     label: 'Skills',     icon: Code,          targetId: 'skills' },
+    { id: 'projects',   label: 'Projects',   icon: Briefcase,     targetId: 'projects' },
+    { id: 'experience', label: 'Experience', icon: Coffee,        targetId: 'experience' },
+    { id: 'github',     label: 'GitHub',     icon: Github,        targetId: 'github' },
+    { id: 'journal',    label: 'Journal',    icon: MessageCircle, targetId: 'journal' },
+    { id: 'contact',    label: 'Contact',    icon: MessageCircle, targetId: 'contact' }
   ];
 
   const socialLinks = [
@@ -115,9 +113,22 @@ const Header = () => {
               />
             </div>
 
-            {/* Desktop Navigation - Hidden on all screens to use popup menu only */}
-            <div className="hidden">
-              {/* Desktop navigation disabled - using popup menu for all screens */}
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-1 backdrop-blur-md bg-[#1A1A1A]/30 px-2 py-1.5 rounded-2xl border border-[#333]/30">
+              {navItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => handleNavClick(item)}
+                  className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
+                    activeSection === item.id
+                      ? 'bg-gradient-to-r from-[#FF6B47] to-[#FF4500] text-white'
+                      : 'text-gray-400 hover:text-white hover:bg-[#2A2A2A]/60'
+                  }`}
+                >
+                  <item.icon className="w-3.5 h-3.5" />
+                  {item.label}
+                </button>
+              ))}
             </div>
 
             {/* Social Links & Schedule Meeting Button */}
@@ -125,7 +136,7 @@ const Header = () => {
               
               {/* Schedule Meeting Button - Now shows on small screens too */}
               <button
-                onClick={handleScheduleMeeting}
+                onClick={openCalendar}
                 className="hidden sm:flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-[#FF6B47] to-[#FF4500] text-white rounded-2xl font-medium transition-all duration-300 hover:scale-105"
                 style={{ boxShadow: '0 0 20px rgba(255, 107, 71, 0.3)' }}
               >
